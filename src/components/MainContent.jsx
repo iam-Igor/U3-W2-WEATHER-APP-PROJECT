@@ -4,6 +4,7 @@ import { Row, Col, Container } from "react-bootstrap";
 const MainContent = ({ search, getSearch }) => {
   const [cityData, setCityData] = useState({});
   const [isLoading, setisLoading] = useState(false);
+  const [forecastData, setforecastData] = useState({});
 
   const [urlToUse, setUrlTouse] = useState("");
 
@@ -47,6 +48,33 @@ const MainContent = ({ search, getSearch }) => {
       });
   };
 
+  const getForecastData = () => {
+    fetch(
+      "https://api.openweathermap.org/data/2.5/forecast?lat=" +
+        search.lat +
+        "&lon=" +
+        search.lon +
+        "&appid=0558a26d894990857b4f5ee4b1604f20"
+    )
+      .then((res) => {
+        if (res.ok) {
+          console.log("res ok");
+          return res.json();
+        } else {
+          throw new Error("error");
+        }
+      })
+      .then((data) => {
+        console.log(data, "forecast");
+        setforecastData(data);
+        setisLoading(true);
+      })
+      .catch((err) => {
+        console.log(err);
+        setisLoading(false);
+      });
+  };
+
   const seturl = (param) => {
     if (param === "Clear") {
       setUrlTouse(imagesUrls[0]);
@@ -62,6 +90,7 @@ const MainContent = ({ search, getSearch }) => {
   useEffect(() => {
     if (getSearch) {
       getDataByLongandlat();
+      getForecastData();
     }
   }, [search]);
 
@@ -69,15 +98,10 @@ const MainContent = ({ search, getSearch }) => {
     <div>
       {isLoading && (
         <>
-          {/* <h1>{cityData.name}</h1>
-          <p>
-            {(cityData.main.temp - 273.15).toFixed(1)}
-            °C
-          </p> */}
           <Container fluid className="d-flex px-4 justify-content-between">
-            <Row className=" align-items-center row-card1">
-              <Col className="d-flex " xs={8} md={4}>
-                <div className="d-flex flex-column justify-content-between">
+            <Row className=" flex-column row-card">
+              <Col className="d-flex mt-2  col-card1 align-items-center">
+                <div className="d-flex flex-column justify-content-between w-75">
                   {" "}
                   <h1>{cityData.name}</h1>
                   <p>{cityData.weather[0].description}</p>
@@ -85,35 +109,15 @@ const MainContent = ({ search, getSearch }) => {
                     <h1>{(cityData.main.temp - 273.15).toFixed(1)}°C</h1>
                   </div>
                 </div>
-              </Col>
-              <Col xs={4} className="flex-grow-1 text-end">
-                <img width="100" height="100" src={urlToUse} alt="summer" />
-              </Col>
-            </Row>
-            <Row className="d-none d-md-block row-card2">
-              <Col>
-                {" "}
-                <Col xs={4}>
+                <div>
                   <img width="100" height="100" src={urlToUse} alt="summer" />
-                </Col>
-              </Col>
-            </Row>
-          </Container>
-          <Container fluid className="my-3 px-4">
-            <Row className=" align-items-center row-card1">
-              <Col className="d-flex " xs={8} md={4}>
-                <div className="d-flex flex-column justify-content-between">
-                  {" "}
-                  <h1>{cityData.name}</h1>
-                  <p>{cityData.weather[0].description}</p>
-                  <div>
-                    <h1>{(cityData.main.temp - 273.15).toFixed(1)}°C</h1>
-                  </div>
                 </div>
               </Col>
-              <Col xs={4} className="flex-grow-1 text-end">
-                <img width="100" height="100" src={urlToUse} alt="summer" />
-              </Col>
+
+              <Col className="d-flex my-2  col-card1 align-items-center"></Col>
+            </Row>
+            <Row className="d-none d-md-block w-25">
+              <Col className="col-card1">search</Col>
             </Row>
           </Container>
         </>
