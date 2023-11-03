@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import MyNavbar from "./components/MyNavbar";
 import MainContent from "./components/MainContent";
 import { useState } from "react";
+import MyHeader from "./components/MyHeader";
 
 function App() {
   const [searchvalue, setSearchValue] = useState([]);
@@ -43,6 +44,7 @@ function App() {
         search={searchvalue}
         setSearch={setSearch}
       />
+      <MyHeader />
       <MainContent search={nameOfthecity[0]} getSearch={getSearch} />
     </div>
   );

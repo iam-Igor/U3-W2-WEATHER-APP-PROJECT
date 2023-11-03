@@ -14,7 +14,7 @@ const MyNavbar = ({ submit, search, setSearch }) => {
   return (
     <>
       <Navbar expand="lg" className="p-0 sticky-top">
-        <Container fluid className="p-0 py-2">
+        <Container fluid className="p-0 py-2 navcont">
           <Navbar.Brand href="#home" className="ms-2">
             <img
               src="https://cdn3.iconfinder.com/data/icons/luchesa-vol-9/128/Weather-512.png"

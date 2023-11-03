@@ -1,8 +1,35 @@
-.container-fluid {
+.navcont {
   background-color: rgb(254, 204, 111);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
 
 .form-btn {
   background-color: #22668d;
+}
+
+.carousel-inner img {
+  height: 400px;
+  object-fit: cover;
+}
+
+.row-card1 {
+  background-color: rgb(235, 236, 240);
+  padding: 2em;
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  width: 75%;
+}
+
+.row-card2 {
+  background-color: rgb(235, 236, 240);
+  padding: 2em;
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  width: 25%;
+}
+
+@media screen and (max-width: 480px) {
+  .row-card1 {
+    width: 100%;
+  }
 }
