@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 import { Row, Col, Container, Button } from "react-bootstrap";
+import MySidebar from "./MySidebar";
 
 const MainContent = ({ search, getSearch }) => {
   const [cityData, setCityData] = useState({});
   const [isLoading, setisLoading] = useState(false);
   const [forecastData, setforecastData] = useState({});
+  const [forecastDays, setForecastDays] = useState([]);
   const [forecastInput, setforecastInput] = useState(false);
   const [urlToUse, setUrlTouse] = useState("");
   const indicesToRender = [0, 1, 3, 5, 6];
+  const indicesToRender2 = [0, 6, 14, 19, 28, 35];
+  console.log(forecastDays);
 
   const imagesUrls = [
     "https://img.icons8.com/fluency/48/summer.png",
@@ -72,8 +76,13 @@ const MainContent = ({ search, getSearch }) => {
           (index) => data.list[index]
         );
 
+        const filteredDataForecast2 = indicesToRender2.map(
+          (index) => data.list[index]
+        );
+
         setforecastData(filteredDataForecast);
-        console.log(forecastData);
+        setForecastDays(filteredDataForecast2);
+
         setisLoading(true);
         setforecastInput(true);
       })
@@ -105,7 +114,7 @@ const MainContent = ({ search, getSearch }) => {
     <div>
       {isLoading && (
         <>
-          <Container fluid className="d-flex px-4 justify-content-between">
+          <Container fluid className="d-flex px-4 justify-content-between ">
             <Row className=" flex-column row-card">
               <Col className="d-flex  col-card1 align-items-center">
                 <div className="d-flex flex-column justify-content-between w-75">
@@ -122,7 +131,7 @@ const MainContent = ({ search, getSearch }) => {
               </Col>
 
               <Col className="my-2 col-card1">
-                <p className="fw-bold">Today's forecast</p>
+                <h6 className="fw-bold">Today's forecast</h6>
                 {forecastInput && forecastData && (
                   <div className="d-flex justify-content-around">
                     {forecastData.map((day, i) => {
@@ -161,30 +170,50 @@ const MainContent = ({ search, getSearch }) => {
                 )}
               </Col>
               <Col className="d-flex mt-2  col-card1 align-items-center">
-                <div className="d-flex flex-column w-100 justify-content-center">
+                <div className="d-flex flex-column w-100 justify-content-center forecast1">
                   <div className="d-flex justify-content-between">
-                    <p className="fw-bold">Air conditions</p>
+                    <h6 className="fw-bold">Air conditions</h6>
                     <Button className="rounded-pill shadow">See more</Button>
                   </div>
                   <div className="d-flex ">
                     <div className="d-flex flex-column w-25 text-center my-1">
-                      <p>Real feel</p>
+                      <p>
+                        <span>
+                          <i className="bi bi-thermometer-sun"></i>
+                        </span>
+                        Real feel
+                      </p>
                       <h2>
                         {(cityData.main.feels_like - 273.15).toFixed(1)}°C
                       </h2>
                     </div>
                     <div className="d-flex flex-column w-75 text-center">
-                      <p>Wind</p>
+                      <p>
+                        <span>
+                          <i className="bi bi-wind"></i>
+                        </span>
+                        Wind
+                      </p>
                       <h2>{cityData.wind.speed.toFixed(0)}Km/h</h2>
                     </div>
                   </div>
                   <div className="d-flex ">
                     <div className="d-flex flex-column w-25 text-center">
-                      <p>Humidity</p>
+                      <p>
+                        <span>
+                          <i className="bi bi-droplet-half"></i>
+                        </span>
+                        Humidity
+                      </p>
                       <h2>{cityData.main.humidity}% </h2>
                     </div>
                     <div className="d-flex flex-column w-75 text-center my-1">
-                      <p>Temperatures</p>
+                      <p>
+                        <span>
+                          <i className="bi bi-thermometer-snow"></i>
+                        </span>
+                        Temperatures
+                      </p>
                       <h5>
                         <span>
                           <i className="bi bi-thermometer-high"></i>
@@ -202,9 +231,7 @@ const MainContent = ({ search, getSearch }) => {
                 </div>
               </Col>
             </Row>
-            <Row className="d-none d-md-block sidebar">
-              <Col className="col-card1">search</Col>
-            </Row>
+            <MySidebar days={forecastDays} imgurl={imagesUrls} />
           </Container>
         </>
       )}
