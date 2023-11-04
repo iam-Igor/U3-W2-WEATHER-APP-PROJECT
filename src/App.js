@@ -4,6 +4,7 @@ import MyNavbar from "./components/MyNavbar";
 import MainContent from "./components/MainContent";
 import { useState } from "react";
 import MyHeader from "./components/MyHeader";
+import MyFooter from "./components/MyFooter";
 
 function App() {
   const [searchvalue, setSearchValue] = useState([]);
@@ -46,6 +47,7 @@ function App() {
       />
       <MyHeader />
       <MainContent search={nameOfthecity[0]} getSearch={getSearch} />
+      <MyFooter />
     </div>
   );
 }

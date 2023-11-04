@@ -84,3 +84,8 @@ body {
     display: none;
   }
 }
+
+.footer {
+  background-color: rgb(254, 204, 111);
+  box-shadow: -5px -19px 12px -19px rgba(0, 0, 0, 0.3);
+}
