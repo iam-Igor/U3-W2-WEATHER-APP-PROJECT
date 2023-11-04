@@ -5,7 +5,7 @@ const MyFooter = () => {
   const currentYear = getYear(new Date());
 
   return (
-    <Container fluid className="footer mt-4 p-4">
+    <Container fluid className="footer p-4">
       <Row>
         <Col className="d-flex align-items-center flex-column">
           <ul className="list-unstyled d-flex justify-content around">

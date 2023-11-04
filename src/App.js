@@ -39,7 +39,7 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <>
       <MyNavbar
         submit={getDataByCityName}
         search={searchvalue}
@@ -48,7 +48,7 @@ function App() {
       <MyHeader />
       <MainContent search={nameOfthecity[0]} getSearch={getSearch} />
       <MyFooter />
-    </div>
+    </>
   );
 }
 

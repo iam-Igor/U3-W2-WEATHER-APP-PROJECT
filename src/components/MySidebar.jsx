@@ -3,7 +3,7 @@ import { parse, format } from "date-fns";
 
 const MySidebar = ({ days, imgurl }) => {
   return (
-    <Row className="d-none d-md-flex sidebar flex-column col-card1 align-items-between">
+    <Row className="d-none d-md-flex sidebar flex-column col-card1 align-items-between ">
       <h6>5-day Forecast</h6>
       {days.map((day, index) => {
         const dateString = day.dt_txt;
