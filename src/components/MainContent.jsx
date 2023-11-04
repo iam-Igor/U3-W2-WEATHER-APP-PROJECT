@@ -5,8 +5,9 @@ const MainContent = ({ search, getSearch }) => {
   const [cityData, setCityData] = useState({});
   const [isLoading, setisLoading] = useState(false);
   const [forecastData, setforecastData] = useState({});
-
+  const [forecastInput, setforecastInput] = useState(false);
   const [urlToUse, setUrlTouse] = useState("");
+  const indicesToRender = [1, 3, 5, 6];
 
   const imagesUrls = [
     "https://img.icons8.com/fluency/48/summer.png",
@@ -15,9 +16,6 @@ const MainContent = ({ search, getSearch }) => {
     "https://img.icons8.com/fluency/48/partly-cloudy-day.png",
     "https://img.icons8.com/fluency/48/snow.png",
   ];
-
-  console.log(search);
-  console.log(cityData);
 
   const getDataByLongandlat = () => {
     fetch(
@@ -41,6 +39,9 @@ const MainContent = ({ search, getSearch }) => {
         setisLoading(true);
 
         seturl(data.weather[0].main);
+        setTimeout(() => {
+          getForecastData();
+        }, 500);
       })
       .catch((err) => {
         console.log(err);
@@ -66,8 +67,15 @@ const MainContent = ({ search, getSearch }) => {
       })
       .then((data) => {
         console.log(data, "forecast");
-        setforecastData(data);
+
+        const filteredDataForecast = indicesToRender.map(
+          (index) => data.list[index]
+        );
+
+        setforecastData(filteredDataForecast);
+
         setisLoading(true);
+        setforecastInput(true);
       })
       .catch((err) => {
         console.log(err);
@@ -90,7 +98,6 @@ const MainContent = ({ search, getSearch }) => {
   useEffect(() => {
     if (getSearch) {
       getDataByLongandlat();
-      getForecastData();
     }
   }, [search]);
 
@@ -114,7 +121,33 @@ const MainContent = ({ search, getSearch }) => {
                 </div>
               </Col>
 
-              <Col className="d-flex my-2  col-card1 align-items-center"></Col>
+              <Col className=" my-2  col-card1 ">
+                <p>Today's forecast</p>
+                {forecastInput && forecastData && (
+                  <div className="d-flex justify-content-between">
+                    {forecastData.map((day, i) => {
+                      console.log(day[i]);
+                      return (
+                        <div key={i} className="d-flex flex-column">
+                          <p>{day.dt_txt}</p>
+                          <div>
+                            <img
+                              width="60"
+                              height="60"
+                              src={urlToUse}
+                              alt="summer"
+                            />
+                          </div>
+                          <h3>
+                            {(day.main.temp - 273.15).toFixed(1)}
+                            °C
+                          </h3>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </Col>
             </Row>
             <Row className="d-none d-md-block w-25">
               <Col className="col-card1">search</Col>
