@@ -4,7 +4,7 @@ const MyHeader = () => {
   return (
     <div className="my-3">
       <Accordion defaultActiveKey="0">
-        <Accordion.Item eventKey="1">
+        <Accordion.Item eventKey="0">
           <Accordion.Header>
             We provide weather forecasts for every city in the world, click to
             search major cities.

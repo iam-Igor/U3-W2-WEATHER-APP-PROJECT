@@ -7,7 +7,7 @@ const MainContent = ({ search, getSearch }) => {
   const [forecastData, setforecastData] = useState({});
   const [forecastInput, setforecastInput] = useState(false);
   const [urlToUse, setUrlTouse] = useState("");
-  const indicesToRender = [1, 3, 5, 6];
+  const indicesToRender = [0, 1, 3, 5, 6];
 
   const imagesUrls = [
     "https://img.icons8.com/fluency/48/summer.png",
@@ -73,7 +73,7 @@ const MainContent = ({ search, getSearch }) => {
         );
 
         setforecastData(filteredDataForecast);
-
+        console.log(forecastData);
         setisLoading(true);
         setforecastInput(true);
       })
@@ -161,18 +161,42 @@ const MainContent = ({ search, getSearch }) => {
                 )}
               </Col>
               <Col className="d-flex mt-2  col-card1 align-items-center">
-                <div className="d-flex flex-column w-100">
+                <div className="d-flex flex-column w-100 justify-content-center">
                   <div className="d-flex justify-content-between">
                     <p className="fw-bold">Air conditions</p>
                     <Button className="rounded-pill shadow">See more</Button>
                   </div>
-                  <div className="d-flex">
-                    <div className="d-flex flex-column">
-                      real temp + <p>chances of rain</p>
+                  <div className="d-flex ">
+                    <div className="d-flex flex-column w-25 text-center my-1">
+                      <p>Real feel</p>
+                      <h2>
+                        {(cityData.main.feels_like - 273.15).toFixed(1)}°C
+                      </h2>
                     </div>
-                    <div>
-                      {" "}
-                      wind + <p>uv index</p>
+                    <div className="d-flex flex-column w-75 text-center">
+                      <p>Wind</p>
+                      <h2>{cityData.wind.speed.toFixed(0)}Km/h</h2>
+                    </div>
+                  </div>
+                  <div className="d-flex ">
+                    <div className="d-flex flex-column w-25 text-center">
+                      <p>Humidity</p>
+                      <h2>{cityData.main.humidity}% </h2>
+                    </div>
+                    <div className="d-flex flex-column w-75 text-center my-1">
+                      <p>Temperatures</p>
+                      <h5>
+                        <span>
+                          <i className="bi bi-thermometer-high"></i>
+                        </span>
+                        {(cityData.main.temp_max - 273.15).toFixed(1)}°C
+                      </h5>
+                      <h5>
+                        <span>
+                          <i className="bi bi-thermometer-low"></i>
+                        </span>
+                        {(cityData.main.temp_min - 273.15).toFixed(1)}°C
+                      </h5>
                     </div>
                   </div>
                 </div>
