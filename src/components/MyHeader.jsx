@@ -3,8 +3,8 @@ import { Accordion, Carousel } from "react-bootstrap";
 const MyHeader = () => {
   return (
     <div className="my-3">
-      <Accordion>
-        <Accordion.Item>
+      <Accordion defaultActiveKey="0">
+        <Accordion.Item eventKey="1">
           <Accordion.Header>
             We provide weather forecasts for every city in the world, click to
             search major cities.

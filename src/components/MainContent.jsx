@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Row, Col, Container } from "react-bootstrap";
+import { Row, Col, Container, Button } from "react-bootstrap";
 
 const MainContent = ({ search, getSearch }) => {
   const [cityData, setCityData] = useState({});
@@ -107,7 +107,7 @@ const MainContent = ({ search, getSearch }) => {
         <>
           <Container fluid className="d-flex px-4 justify-content-between">
             <Row className=" flex-column row-card">
-              <Col className="d-flex mt-2  col-card1 align-items-center">
+              <Col className="d-flex  col-card1 align-items-center">
                 <div className="d-flex flex-column justify-content-between w-75">
                   {" "}
                   <h1>{cityData.name}</h1>
@@ -121,35 +121,64 @@ const MainContent = ({ search, getSearch }) => {
                 </div>
               </Col>
 
-              <Col className=" my-2  col-card1 ">
-                <p>Today's forecast</p>
+              <Col className="my-2 col-card1">
+                <p className="fw-bold">Today's forecast</p>
                 {forecastInput && forecastData && (
-                  <div className="d-flex justify-content-between">
+                  <div className="d-flex justify-content-around">
                     {forecastData.map((day, i) => {
-                      console.log(day[i]);
+                      const weatherType = day.weather[0].main;
+
+                      let imageUrl = "";
+                      if (weatherType === "Clear") {
+                        imageUrl = imagesUrls[0];
+                      } else if (weatherType === "Clouds") {
+                        imageUrl = imagesUrls[1];
+                      } else if (weatherType === "Rain") {
+                        imageUrl = imagesUrls[2];
+                      } else if (weatherType === "Snow") {
+                        imageUrl = imagesUrls[4];
+                      }
+
                       return (
-                        <div key={i} className="d-flex flex-column">
-                          <p>{day.dt_txt}</p>
-                          <div>
+                        <div
+                          key={i}
+                          className="d-flex flex-column align-items-center  w-25  forecast-card "
+                        >
+                          <p>{day.dt_txt.split(" ")[1]}</p>
+                          <div className="d-flex justify-content-center ">
                             <img
                               width="60"
                               height="60"
-                              src={urlToUse}
-                              alt="summer"
+                              src={imageUrl}
+                              alt={weatherType}
                             />
                           </div>
-                          <h3>
-                            {(day.main.temp - 273.15).toFixed(1)}
-                            °C
-                          </h3>
+                          <h3>{(day.main.temp - 273.15).toFixed(1)}°C</h3>
                         </div>
                       );
                     })}
                   </div>
                 )}
               </Col>
+              <Col className="d-flex mt-2  col-card1 align-items-center">
+                <div className="d-flex flex-column w-100">
+                  <div className="d-flex justify-content-between">
+                    <p className="fw-bold">Air conditions</p>
+                    <Button className="rounded-pill shadow">See more</Button>
+                  </div>
+                  <div className="d-flex">
+                    <div className="d-flex flex-column">
+                      real temp + <p>chances of rain</p>
+                    </div>
+                    <div>
+                      {" "}
+                      wind + <p>uv index</p>
+                    </div>
+                  </div>
+                </div>
+              </Col>
             </Row>
-            <Row className="d-none d-md-block w-25">
+            <Row className="d-none d-md-block sidebar">
               <Col className="col-card1">search</Col>
             </Row>
           </Container>
