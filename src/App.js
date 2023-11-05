@@ -11,6 +11,8 @@ const App = () => {
   const [searchvalue, setSearchValue] = useState("London");
   const [nameOfthecity, setNameOfTheCity] = useState([]);
   const [getSearch, setGetSerch] = useState(false);
+  const [imageUrl, setImageUrl] = useState({});
+  const [loadedPhoto, setLoadedPhoto] = useState(false);
 
   const setSearch = (param) => {
     setSearchValue(param);
@@ -34,6 +36,33 @@ const App = () => {
         console.log(data);
         setGetSerch(true);
         setNameOfTheCity(data);
+        getPhotofTheBG();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const getPhotofTheBG = () => {
+    fetch("https://api.pexels.com/v1/search?query=" + searchvalue, {
+      headers: {
+        Authorization:
+          "yJLe58wdcJk7SzlU9TNot1JNebbnlGGDW6SYwRsbUFiR2C0C5DzdsWav",
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error("error in fetch image");
+        }
+      })
+      .then((data) => {
+        console.log(imageUrl);
+        setTimeout(() => {
+          setLoadedPhoto(true);
+          setImageUrl(data.photos[0]);
+        }, 500);
       })
       .catch((err) => {
         console.log(err);
@@ -56,7 +85,11 @@ const App = () => {
         <Route
           path="/"
           element={
-            <MainContent search={nameOfthecity[0]} getSearch={getSearch} />
+            <MainContent
+              search={nameOfthecity[0]}
+              getSearch={getSearch}
+              background={loadedPhoto ? imageUrl.src.landscape : ""}
+            />
           }
         />
         <Route path="*" element={<NotFound />} />

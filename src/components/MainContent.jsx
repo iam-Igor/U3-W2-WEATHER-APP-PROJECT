@@ -5,7 +5,7 @@ import MyHeader from "./MyHeader";
 import { useNavigate } from "react-router-dom";
 import { parse, format } from "date-fns";
 
-const MainContent = ({ search, getSearch }) => {
+const MainContent = ({ search, getSearch, background }) => {
   const [cityData, setCityData] = useState({});
   const [isLoading, setisLoading] = useState(false);
   const [forecastData, setforecastData] = useState({});
@@ -124,10 +124,24 @@ const MainContent = ({ search, getSearch }) => {
 
       {isLoading ? (
         <>
-          <Container fluid className="d-flex px-4 justify-content-between mb-4">
-            <Row className=" flex-column row-card">
-              <Col className="d-flex  col-card1 align-items-center">
-                <div className="d-flex flex-column justify-content-between w-75">
+          <Container
+            fluid
+            className="d-flex px-4 justify-content-between mb-4 "
+          >
+            <Row className=" flex-column row-card ">
+              <Col
+                className="d-flex  col-card1 align-items-center"
+                style={{
+                  backgroundImage: `url(${background})`,
+                  backgroundSize: "cover",
+                  backgroundPositionY: "center",
+                  backgroundRepeat: "no-repeat",
+                }}
+              >
+                <div
+                  className="d-flex flex-column justify-content-between w-75 text-white"
+                  style={{ textShadow: "4px 4px 2px rgba(0,0,0,0.6)" }}
+                >
                   {" "}
                   <h1>
                     {cityData.name},<span> {search.country}</span>
@@ -137,7 +151,7 @@ const MainContent = ({ search, getSearch }) => {
                     <h1>{(cityData.main.temp - 273.15).toFixed(1)}°C</h1>
                   </div>
                 </div>
-                <div>
+                <div className="w-25">
                   <img width="100" height="100" src={urlToUse} alt="summer" />
                 </div>
               </Col>
@@ -256,7 +270,7 @@ const MainContent = ({ search, getSearch }) => {
       ) : (
         <>
           <div className="d-flex justify-content-center mt-5">
-            <div class="spinner">
+            <div className="spinner">
               <div></div>
               <div></div>
               <div></div>
