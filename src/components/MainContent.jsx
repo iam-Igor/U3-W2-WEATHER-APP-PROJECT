@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { Row, Col, Container, Button } from "react-bootstrap";
 import MySidebar from "./MySidebar";
+import { useNavigate } from "react-router-dom";
+import MyHeader from "./MyHeader";
 
-const MainContent = ({ search, getSearch }) => {
+const MainContent = ({ search, getSearch, wrongCity,  }) => {
   const [cityData, setCityData] = useState({});
   const [isLoading, setisLoading] = useState(false);
   const [forecastData, setforecastData] = useState({});
@@ -10,18 +12,29 @@ const MainContent = ({ search, getSearch }) => {
   const [forecastInput, setforecastInput] = useState(false);
   const [urlToUse, setUrlTouse] = useState("");
   const indicesToRender = [0, 1, 3, 5, 6];
-  const indicesToRender2 = [0, 6, 14, 19, 28, 35];
+  const indicesToRender2 = [5, 14, 19, 28, 35];
+  const newLocation = useNavigate();
   console.log(forecastDays);
 
   const imagesUrls = [
     "https://img.icons8.com/fluency/48/summer.png",
     "https://img.icons8.com/fluency/48/cloud.png",
     "https://img.icons8.com/fluency/48/heavy-rain.png",
-    "https://img.icons8.com/fluency/48/partly-cloudy-day.png",
+    "https://img.icons8.com/fluency/96/partly-cloudy-rain.png",
     "https://img.icons8.com/fluency/48/snow.png",
   ];
 
+  if (wrongCity) {
+    newLocation("/NotFound");
+
+  }
+
   const getDataByLongandlat = () => {
+
+    if (wrongCity && search.lat === undefined || search.lon === undefined) {
+      newLocation("/NotFound");
+    }
+
     fetch(
       "https://api.openweathermap.org/data/2.5/weather?lat=" +
         search.lat +
@@ -31,10 +44,11 @@ const MainContent = ({ search, getSearch }) => {
     )
       .then((res) => {
         if (res.ok) {
-          console.log("res ok");
+          console.log("res ok", res);
           return res.json();
         } else {
           throw new Error("error");
+     
         }
       })
       .then((data) => {
@@ -101,6 +115,8 @@ const MainContent = ({ search, getSearch }) => {
       setUrlTouse(imagesUrls[2]);
     } else if (param === "Snow") {
       setUrlTouse(imagesUrls[4]);
+    } else if (param === "Mist") {
+      setUrlTouse(imagesUrls[3]);
     }
   };
 
@@ -112,6 +128,7 @@ const MainContent = ({ search, getSearch }) => {
 
   return (
     <div>
+      <MyHeader />
       {isLoading && (
         <>
           <Container fluid className="d-flex px-4 justify-content-between mb-4">

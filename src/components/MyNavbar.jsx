@@ -57,6 +57,7 @@ const MyNavbar = ({ submit, search, setSearch }) => {
                     onChange={(e) => {
                       setSearch(e.target.value);
                     }}
+                    required
                   />
                 </Col>
                 <Col xs="auto">

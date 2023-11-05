@@ -5,15 +5,20 @@ import MainContent from "./components/MainContent";
 import { useState } from "react";
 import MyHeader from "./components/MyHeader";
 import MyFooter from "./components/MyFooter";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import NotFound from "./components/NotFound";
 
-function App() {
-  const [searchvalue, setSearchValue] = useState([]);
+const App = () => {
+  const [searchvalue, setSearchValue] = useState("");
   const [nameOfthecity, setNameOfTheCity] = useState([]);
   const [getSearch, setGetSerch] = useState(false);
+  const [wrongCity, setWrongCity] = useState(false);
+
 
   const setSearch = (param) => {
     setSearchValue(param);
     setGetSerch(true);
+  
   };
 
   const getDataByCityName = () => {
@@ -31,6 +36,12 @@ function App() {
       })
       .then((data) => {
         console.log(data);
+        if (data.length <= 0 || data) {
+          console.log("città sbagliata ")
+          
+          setWrongCity(true);
+          
+        }
         setNameOfTheCity(data);
       })
       .catch((err) => {
@@ -39,17 +50,30 @@ function App() {
   };
 
   return (
-    <>
+    <BrowserRouter>
       <MyNavbar
         submit={getDataByCityName}
         search={searchvalue}
         setSearch={setSearch}
       />
-      <MyHeader />
-      <MainContent search={nameOfthecity[0]} getSearch={getSearch} />
+      
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <MainContent
+              search={nameOfthecity[0]}
+              getSearch={getSearch}
+              wrongCity={wrongCity}
+              
+            />
+          }
+        />
+        <Route path="*" element={<NotFound setSearch={setSearch} />} />
+      </Routes>
       <MyFooter />
-    </>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;

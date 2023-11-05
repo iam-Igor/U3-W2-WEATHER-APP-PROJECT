@@ -49,31 +49,7 @@ body {
   color: gray;
 }
 
-body {
-  background: linear-gradient(135deg, #0000 20.5%, #f2f2f2 0 29.5%, #0000 0) 0
-      14.5px,
-    linear-gradient(45deg, #0000 8%, #f2f2f2 0 17%, #0000 0 58%) 29px 0,
-    linear-gradient(
-      135deg,
-      #0000 8%,
-      #f2f2f2 0 17%,
-      #0000 0 58%,
-      #f2f2f2 0 67%,
-      #0000 0
-    ),
-    linear-gradient(
-      45deg,
-      #0000 8%,
-      #f2f2f2 0 17%,
-      #0000 0 58%,
-      #f2f2f2 0 67%,
-      #0000 0 83%,
-      #f2f2f2 0 92%,
-      #0000 0
-    ),
-    #ffffff;
-  background-size: 58px 58px;
-}
+
 
 @media screen and (max-width: 480px) {
   .row-card {
