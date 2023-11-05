@@ -125,7 +125,7 @@ const MainContent = ({ search, getSearch }) => {
       {isLoading ? (
         <>
           <Container fluid className="d-flex px-4 justify-content-between mb-4">
-            <Row className=" flex-column row-card ">
+            <Row className=" flex-column row-card">
               <Col className="d-flex  col-card1 align-items-center">
                 <div className="d-flex flex-column justify-content-between w-75">
                   {" "}
