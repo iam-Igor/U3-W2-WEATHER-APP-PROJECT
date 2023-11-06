@@ -143,7 +143,7 @@ const MainContent = ({ search, getSearch, background }) => {
                   style={{ textShadow: "4px 4px 2px rgba(0,0,0,0.6)" }}
                 >
                   {" "}
-                  <h1>
+                  <h1 className="moving">
                     {cityData.name},<span> {search.country}</span>
                   </h1>
                   <p>{cityData.weather[0].description}</p>
@@ -151,7 +151,7 @@ const MainContent = ({ search, getSearch, background }) => {
                     <h1>{(cityData.main.temp - 273.15).toFixed(1)}°C</h1>
                   </div>
                 </div>
-                <div className="w-25">
+                <div className="w-25 me-4">
                   <img width="100" height="100" src={urlToUse} alt="summer" />
                 </div>
               </Col>
@@ -184,7 +184,7 @@ const MainContent = ({ search, getSearch, background }) => {
                       return (
                         <div
                           key={i}
-                          className="d-flex flex-column align-items-center  w-25  forecast-card "
+                          className="d-flex flex-column align-items-center  w-25  forecast-card card-weather "
                         >
                           <p>{formattedDate}</p>
                           <div className="d-flex justify-content-center ">
