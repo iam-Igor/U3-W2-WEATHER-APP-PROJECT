@@ -76,6 +76,7 @@ const MainContent = ({ search, getSearch, background }) => {
         }
       })
       .then((data) => {
+        console.log(data);
         const filteredDataForecast = indicesToRender.map(
           (index) => data.list[index]
         );
@@ -156,10 +157,10 @@ const MainContent = ({ search, getSearch, background }) => {
                 </div>
               </Col>
 
-              <Col className="my-2 col-card1">
+              <Col className="my-2 col-card1 enter">
                 <h6 className="fw-bold">Hourly forecast</h6>
                 {forecastInput && forecastData && (
-                  <div className="d-flex justify-content-around">
+                  <div className="d-flex justify-content-around ">
                     {forecastData.map((day, i) => {
                       const weatherType = day.weather[0].main;
                       const dateString = day.dt_txt;
