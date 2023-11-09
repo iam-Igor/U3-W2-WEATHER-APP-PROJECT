@@ -21,7 +21,7 @@ const App = () => {
 
   const getDataByCityName = () => {
     fetch(
-      "http://api.openweathermap.org/geo/1.0/direct?q=" +
+      "https://api.openweathermap.org/geo/1.0/direct?q=" +
         searchvalue +
         ",&limit=1&appid=25b79b4a25cd7a32ae9e3bdea7231540"
     )
